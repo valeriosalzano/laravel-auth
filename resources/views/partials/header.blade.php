@@ -1,4 +1,4 @@
-<header>
+<header class="mb-3">
 
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm py-2">
         <div class="container">
@@ -42,7 +42,7 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url('dashboard') }}">{{ __('Dashboard') }}</a>
+                                <a class="dropdown-item" href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a>
                                 <a class="dropdown-item" href="{{ url('profile') }}">{{ __('Profile') }}</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                     onclick="event.preventDefault();
