@@ -2,7 +2,8 @@
 
 @section('page-title', 'Edit Project')
 
-@section('content')
+@section('admin-content')
+
     <div class="container">
 
         @include('partials.forms.validation.errors_alert')

@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@section('page-title', 'Show Project')
 @section('admin-content')
 
     <div class="container py-3 project-container">
