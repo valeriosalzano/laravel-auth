@@ -24,12 +24,12 @@
                 <a href="{{ route('admin.projects.index') }}" class="btn btn-primary w-100">Return to Projects</a>
             </div>
             <div class="col">
-                <a class="w-100 btn btn-warning" href="{{ route('admin.projects.edit', ['project' => $project->id]) }}">
+                <a class="w-100 btn btn-warning" href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}">
                     Edit Project
                 </a>
             </div>
             <div class="col">
-                <form action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}" method="post"
+                <form action="{{ route('admin.projects.destroy', ['project' => $project->slug]) }}" method="post"
                     class="col delete_form">
                     @csrf
                     @method('DELETE')

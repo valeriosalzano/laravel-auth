@@ -27,7 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.projects.create');
     }
 
     /**
@@ -38,7 +38,19 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        //
+
+        $validated_data = $request->validated();
+
+        $validated_data['slug'] = Project::generateSlug($request->title);
+
+        if(Project::where('slug', $validated_data['slug'])->first()){
+            return back()->withInput()->withErrors(['slug' => 'Slug already taken. Different title required']);
+        }
+
+        $newProject = Project::create($validated_data);
+
+        return to_route('admin.projects.show', ['project' => $newProject->slug])
+        ->with('status', 'Success! Project created.');
     }
 
     /**
@@ -60,7 +72,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        //
+        return view('admin.projects.edit', compact('project'));
     }
 
     /**
@@ -72,7 +84,18 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        //
+        $validated_data = $request->validated();
+
+        $validated_data['slug'] = Project::generateSlug($request->title);
+
+        if(Project::where('slug', $validated_data['slug'])->where('id', '<>', $project->id)->first()){
+            return back()->withInput()->withErrors(['slug' => 'Slug already taken. Different title required']);
+        }
+
+        $project->update($validated_data);
+
+        return to_route('admin.projects.show', ['project' => $project->slug])
+        ->with('status', 'Success! Project updated.');
     }
 
     /**
@@ -83,6 +106,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();
+        return to_route('admin.projects.index');
     }
 }
