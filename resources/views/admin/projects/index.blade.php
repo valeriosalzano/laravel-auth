@@ -1,32 +1,48 @@
 @extends('layouts.admin')
 
 @section('admin-content')
-
-<table class="table">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Title</th>
-        <th scope="col">Description</th>
-        <th scope="col">Cover Link</th>
-        <th scope="col">Slug</th>
-        <th scope="col">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-        @foreach ($projects as $project)
+    <table class="table table-striped">
+        <thead>
             <tr>
-                <td>{{$project->id}}</td>
-                <td>{{$project->title}}</td>
-                <td>{{$project->description}}</td>
-                <td>{{$project->cover_image}}</td>
-                <td>{{$project->slug}}</td>
-                <td>
-                    <a class="btn btn-primary" href="{{route('admin.projects.show', $project->slug)}}">Show</a>
-                </td>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Cover Link</th>
+                <th scope="col">Slug</th>
+                <th scope="col">Actions</th>
             </tr>
-        @endforeach
-    </tbody>
-  </table>
+        </thead>
+        <tbody>
+            @foreach ($projects as $project)
+                <tr class="project-container">
+                    <td>{{ $project->id }}</td>
+                    <td class="project-title">{{ $project->title }}</td>
+                    <td>{{ $project->cover_image }}</td>
+                    <td>{{ $project->slug }}</td>
+                    <td>
+                        <div class="d-flex justify-content-between align-items-center">
 
+                            <a class="btn btn-primary me-1" href="{{ route('admin.projects.show', $project->slug) }}">
+                                Show
+                            </a>
+                            <a class="btn btn-warning me-1"
+                                href="{{ route('admin.projects.edit', ['project' => $project->slug]) }}">
+                                Edit
+                            </a>
+                            <form action="{{ route('admin.projects.destroy', ['project' => $project->slug]) }}"
+                                method="post" class="position">
+                                @csrf
+                                @method('DELETE')
+                                @include('partials.forms.sweet_delete.delete_btn')
+
+                            </form>
+                        </div>
+
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+
+@section('delete-element-name', 'project')
+@include('partials.forms.sweet_delete.delete_alert')
 @endsection

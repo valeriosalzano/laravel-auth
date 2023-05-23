@@ -6,7 +6,6 @@
                 <div class="logo_project">
 
                 </div>
-                {{-- config('app.name', 'Laravel') --}}
             </a>
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
